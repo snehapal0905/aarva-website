@@ -74,7 +74,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .nav.scrolled, .nav.open { background: rgba(5, 7, 13, 0.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom-color: var(--line); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
 .brand { white-space: nowrap; display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.01em; }
-.brand-mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, #c7d5ff, #6f8fff); box-shadow: 0 0 24px rgba(111,143,255,0.35); flex: none; }
+.brand-mark { width: 28px; height: 28px; color: #ff5b1f; flex: none; }
 .nav-links { display: flex; gap: 32px; }
 .nav-links a { color: var(--muted); font-size: 0.97rem; transition: color .2s; }
 .nav-links a:hover, .nav-links a[aria-current='page'] { color: var(--text); }

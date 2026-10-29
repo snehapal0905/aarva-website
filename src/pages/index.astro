@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Blueprint from '../components/Blueprint.astro';
-import MachineWindow from '../components/MachineWindow.astro';
+import Hero from '../components/Hero.astro';
 import Cta from '../components/Cta.astro';
 import { stats, clients, oneStop, industries, process, deliverables } from '../data/site';
 ---
@@ -9,28 +9,7 @@ import { stats, clients, oneStop, industries, process, deliverables } from '../d
   title="Aarva Aerospace | Precision CNC & 5-Axis VMC Machining, Bengaluru"
   description="ISO 9001:2015 certified precision CNC and 5-axis VMC machining in Peenya, Bengaluru. Aerospace, defence, medical, automotive and hydraulic components to ±0.005 mm."
 >
-  <section class="hero">
-    <div class="container">
-      <span class="pill"><b>2026</b> Aerospace and defence manufacturer in Karnataka</span>
-      <h1>Precision engineering for aerospace and defence</h1>
-      <p class="hero-sub">
-        CNC and 5-axis VMC machined components held to ±0.005 mm, with full traceability and inspection
-        reports on every order.
-      </p>
-      <div class="hero-cta">
-        <a href="/contact/#rfq" class="btn btn-light">Request a quote</a>
-        <a href="/catalogue/" class="btn btn-ghost">See our products</a>
-      </div>
-      <div class="hero-meta">
-        <span>ISO 9001:2015 certified</span>
-        <span>AS9100D in progress</span>
-        <span>Peenya, Bengaluru</span>
-      </div>
-    </div>
-    <div class="window-wrap reveal">
-      <MachineWindow />
-    </div>
-  </section>
+  <Hero />
 
   <section class="section-tight">
     <div class="container">

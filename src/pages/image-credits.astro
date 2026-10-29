@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import credits from '../data/credits.json';
+---
+<Base title="Image credits" description="Sources and licences for the photographs used on this website.">
+  <section class="section-tight">
+    <div class="container" style="max-width:860px;padding-top:48px">
+      <h1>Image credits</h1>
+      <p class="muted">Photographs on this site come from Wikimedia Commons. Their authors and licences are listed below.</p>
+      <ul style="list-style:none;padding:0;margin:32px 0 0">
+        {credits.map((c) => (
+          <li style="padding:16px 0;border-top:1px solid var(--line)">
+            <strong>{c.use}</strong><br />
+            <a href={c.page} rel="noopener" target="_blank">{c.title}</a> by {c.author},
+            {' '}<a href={c.licenceUrl} rel="noopener license" target="_blank">{c.licence}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
