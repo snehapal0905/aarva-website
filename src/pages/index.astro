@@ -1,146 +1,257 @@
 ---
+// The hero is final. Every section below it is a temporary basic version (see NEXT_STEPS.md).
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import Blueprint from '../components/Blueprint.astro';
 import Hero from '../components/Hero.astro';
 import Cta from '../components/Cta.astro';
-import { stats, clients, oneStop, industries, process, deliverables } from '../data/site';
+import {
+  company, aboutStats, vision, mission, qualityPolicy, clients, capabilities,
+  industries, process, certifications, strengths, exportSection,
+} from '../data/content';
+import factory from '../assets/site/factory.jpg';
+import cncSpindle from '../assets/site/cnc-spindle.jpg';
+import cncTools from '../assets/site/cnc-tools.jpg';
+import machine from '../assets/site/machine.jpg';
+import gauge from '../assets/site/inspection-gauge.jpg';
+import earth from '../assets/site/earth.jpg';
+import indAerospace from '../assets/site/ind-aerospace.jpg';
+import indDefence from '../assets/site/ind-defence.jpg';
+import indMedical from '../assets/site/ind-medical.jpg';
+import indAutomotive from '../assets/site/ind-automotive.jpg';
+import indHydraulics from '../assets/site/ind-hydraulics.jpg';
+import indMachineTools from '../assets/site/ind-machine-tools.jpg';
+
+const capImages = [cncSpindle, cncTools, machine];
+const indImages = [indAerospace, indDefence, indMedical, indAutomotive, indHydraulics, indMachineTools];
 ---
 <Base
   title="Aarva Aerospace | Precision CNC & 5-Axis VMC Machining, Bengaluru"
-  description="ISO 9001:2015 certified precision CNC and 5-axis VMC machining in Peenya, Bengaluru. Aerospace, defence, medical, automotive and hydraulic components to ±0.005 mm."
+  description="ISO 9001:2015 certified precision CNC and 5-axis VMC machining in Bengaluru. Aerospace, defence, medical, automotive and hydraulic components to ±0.005 mm."
 >
   <Hero />
 
-  <section class="section-tight">
-    <div class="container">
-      <div class="stats reveal">
-        {stats.map((s) => (
-          <div class="stat"><strong>{s.value}</strong><span>{s.label}</span></div>
-        ))}
+  <!-- About -->
+  <section class="section light">
+    <div class="container about">
+      <div class="about-photo reveal">
+        <Image src={factory} alt="Machine shop floor" widths={[600, 1100]} sizes="(max-width: 900px) 100vw, 45vw" class="photo" />
+        <span class="badge">ISO 9001:2015 Certified</span>
       </div>
-      <div class="clients reveal" style="margin-top:56px">
-        <p>Trusted by manufacturers including</p>
-        <div class="client-row">{clients.map((c) => <span>{c}</span>)}</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="products">
-    <div class="container">
       <div class="reveal">
-        <span class="eyebrow">Products</span>
-        <h2 class="h2">Everything Aarva Aerospace makes</h2>
-        <p class="lead">
-          Machined parts for regular buyers, and custom work for anyone with a drawing, a sample or a specific need.
-        </p>
-      </div>
-      <div class="bento reveal" style="margin-top:48px">
-        <a href="/contact/#rfq" class="card feature">
-          <Blueprint kind="gear" label="Gear technical drawing" />
-          <h3>Made to your specification</h3>
-          <p>Send a drawing or a sample. We confirm what’s possible, the minimum order and a timeline before you commit.</p>
-        </a>
-        <a href="/industries/#aerospace" class="card small">
-          <h3>Aerospace parts</h3>
-          <p>Brackets, housings and mounting blocks in Al 7075-T6, Al 6061 and SS316.</p>
-          <Blueprint kind="bracket" />
-        </a>
-        <a href="/industries/#defence" class="card small">
-          <h3>Defence &amp; UAV components</h3>
-          <p>UAV frame parts, precision brackets and structural housings.</p>
-          <Blueprint kind="uav" />
-        </a>
-        <a href="/capabilities/#finishes" class="card small">
-          <h3>Finished, ready to fit</h3>
-          <p>Anodizing, plating, coating and heat treatment, all handled in one order.</p>
-          <Blueprint kind="block" />
-        </a>
-        <a href="/quality/" class="card small">
-          <h3>Inspected &amp; documented</h3>
-          <p>CMM inspection, FAI, MTC and CoC shipped with every batch.</p>
-          <Blueprint kind="housing" />
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <span class="eyebrow">One supplier</span>
-          <h2 class="h2">From raw material to finished part, under one roof</h2>
+        <span class="eyebrow">01 — About</span>
+        <h2 class="h2">Built on Precision, Driven by Quality.</h2>
+        <p class="lead">{company.about}</p>
+        <dl class="statements">
+          <div><dt>Vision</dt><dd>{vision}</dd></div>
+          <div><dt>Mission</dt><dd>{mission}</dd></div>
+          <div><dt>Quality Policy</dt><dd>{qualityPolicy}</dd></div>
+        </dl>
+        <div class="about-stats">
+          {aboutStats.map((s) => <div><strong>{s.value}{s.suffix ?? ''}</strong><span>{s.label}</span></div>)}
         </div>
-        <a href="/capabilities/" class="arrow-link">All capabilities →</a>
-      </div>
-      <div class="flow reveal">
-        {oneStop.map((s, i) => (
-          <div class="flow-step">
-            <span class="n">0{i + 1}</span>
-            <h3>{s.title}</h3>
-            <p>{s.text}</p>
-          </div>
-        ))}
       </div>
     </div>
   </section>
 
+  <!-- Clients -->
+  <section class="clients">
+    <div class="container">
+      <span class="eyebrow">Trusted by Industry Leaders</span>
+      <ul>{clients.map((c) => <li>{c}</li>)}</ul>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
   <section class="section">
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <span class="eyebrow">Industries</span>
-          <h2 class="h2">Built for sectors where tolerance is not optional</h2>
+          <span class="eyebrow">02 — Capabilities</span>
+          <h2 class="h2">Advanced Machining For Critical Components.</h2>
         </div>
-        <a href="/industries/" class="arrow-link">See all industries →</a>
+        <a href="/capabilities/" class="arrow-link">View Full Capabilities →</a>
       </div>
-      <div class="grid-3">
-        {industries.map((ind) => (
-          <a href={`/industries/#${ind.slug}`} class="card ind-card reveal">
-            <Blueprint kind={ind.icon} />
-            <h3>{ind.name}</h3>
-            <p>{ind.text}</p>
-          </a>
+      <div class="caps">
+        {capabilities.map((c, i) => (
+          <article class="cap reveal">
+            <div class="cap-photo"><Image src={capImages[i]} alt={c.title} widths={[600, 1000]} sizes="(max-width: 900px) 100vw, 50vw" class="photo" /></div>
+            <div class="cap-body">
+              <span class="cap-badge">{c.badge}</span>
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+              <dl class="specs">
+                {Object.entries(c.specs).map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+              </dl>
+            </div>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section-tight">
+  <!-- Industries -->
+  <section class="section light">
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <span class="eyebrow">How we work</span>
-          <h2 class="h2">Seven steps, documented at every stage</h2>
+          <span class="eyebrow">03 — Industries Served</span>
+          <h2 class="h2">Built for sectors where tolerance is not optional.</h2>
+        </div>
+        <a href="/industries/" class="arrow-link">All industries →</a>
+      </div>
+      <div class="inds">
+        {industries.map((ind, i) => (
+          <article class="ind reveal">
+            <Image src={indImages[i]} alt={ind.name} widths={[500, 900]} sizes="(max-width: 700px) 100vw, 33vw" />
+            <div class="ind-body">
+              <h3>{ind.name}</h3>
+              <p>{ind.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">04 — Manufacturing Process</span>
+          <h2 class="h2">7-Step Precision Manufacturing Flow.</h2>
         </div>
         <a href="/how-we-work/" class="arrow-link">See the full process →</a>
       </div>
-      <ol class="steps-mini reveal">
+      <ol class="flow7">
         {process.map((p, i) => (
-          <li><span class="n">0{i + 1}</span><h3>{p.title}</h3></li>
+          <li class="reveal">
+            <span class="n">0{i + 1}</span>
+            <h3>{p.title}</h3>
+            <span class="out">Output: {p.output}</span>
+          </li>
         ))}
       </ol>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container grid-2">
+  <!-- Quality -->
+  <section class="section quality">
+    <div class="container q-grid">
       <div class="reveal">
-        <span class="eyebrow">Quality</span>
-        <h2 class="h2">Calibrated at every step</h2>
-        <p class="lead">
-          ISO 9001:2015 certified, working towards AS9100 Rev D. Every order ships with the paperwork your quality team needs.
-        </p>
-        <div style="margin-top:28px"><a href="/quality/" class="arrow-link">Quality &amp; certifications →</a></div>
+        <span class="eyebrow">05 — Quality &amp; Certifications</span>
+        <h2 class="h2">Zero-Defect Philosophy, Calibrated at Every Step.</h2>
+        <div class="certs">
+          {certifications.map((c) => (
+            <div class="cert"><strong>{c.name}</strong><span>{c.desc}</span><em>{c.status}</em></div>
+          ))}
+        </div>
+        <ol class="strengths">
+          {strengths.slice(0, 4).map((s, i) => <li><span>0{i + 1}</span><div><h3>{s.title}</h3><p>{s.text}</p></div></li>)}
+        </ol>
+        <a href="/quality/" class="arrow-link" style="margin-top:24px;display:inline-block">Quality &amp; certifications →</a>
       </div>
-      <div class="card reveal">
-        <h3>What you receive with every order</h3>
-        <ul class="check-list" style="margin-top:20px">
-          {deliverables.map((d) => <li>{d}</li>)}
-        </ul>
+      <div class="q-photo reveal"><Image src={gauge} alt="Dial gauge inspecting a machined part" widths={[600, 1000]} sizes="(max-width: 900px) 100vw, 45vw" class="photo" /></div>
+    </div>
+  </section>
+
+  <!-- Export -->
+  <section class="export">
+    <Image src={earth} alt="" widths={[960, 1800]} sizes="100vw" class="export-bg" />
+    <div class="container export-inner reveal">
+      <span class="eyebrow">{exportSection.eyebrow}</span>
+      <h2 class="h2">{exportSection.title}</h2>
+      <p class="lead">{exportSection.text}</p>
+      <ul class="countries">{exportSection.countries.map((c) => <li>{c}</li>)}</ul>
+      <div class="highlights">
+        {exportSection.highlights.map((h) => <div><strong>{h.title}</strong><span>{h.text}</span></div>)}
       </div>
+      <a href="/contact/#rfq" class="btn btn-light" style="margin-top:32px">Submit Export Inquiry</a>
     </div>
   </section>
 
   <Cta />
 </Base>
+
+<style>
+  .about { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+  .about-photo { position: relative; aspect-ratio: 4 / 5; }
+  .badge { position: absolute; left: 16px; bottom: 16px; background: #0a1020; color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 14px; }
+  .statements { margin: 36px 0 0; display: grid; gap: 22px; }
+  .statements div { border-top: 1px solid rgba(14, 19, 32, 0.14); padding-top: 16px; }
+  .statements dt { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #d9480f; }
+  .statements dd { margin: 6px 0 0; font-size: 1.05rem; color: #2a3142; }
+  .about-stats { display: flex; gap: 40px; margin-top: 36px; flex-wrap: wrap; }
+  .about-stats strong { display: block; font-family: var(--font-display); font-size: 2.4rem; letter-spacing: -0.03em; color: var(--ink); }
+  .about-stats span { font-size: 13px; color: #5a6274; }
+
+  .clients { padding: 40px 0; border-bottom: 1px solid var(--line); background: var(--bg-2); }
+  .clients ul { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px 44px; }
+  .clients li { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.1rem, 2vw, 1.5rem); color: #c9d0dc; letter-spacing: -0.01em; }
+
+  .caps { display: grid; gap: 28px; }
+  .cap { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--surface); border-radius: var(--radius); overflow: hidden; }
+  .cap:nth-child(2) .cap-photo { order: 2; }
+  .cap-photo { min-height: 360px; }
+  .cap-photo .photo { border-radius: 0; }
+  .cap-body { padding: clamp(28px, 4vw, 48px); }
+  .cap-badge { color: var(--accent); font-weight: 600; font-size: 12px; letter-spacing: 0.16em; }
+  .cap h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); margin-top: 10px; }
+  .cap p { color: var(--muted); margin-top: 12px; }
+  .specs { margin: 22px 0 0; display: grid; }
+  .specs div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 0.95rem; }
+  .specs dt { color: var(--muted); }
+  .specs dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+
+  .inds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ind { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); color: #fff; }
+  .ind img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .ind:hover img { transform: scale(1.05); }
+  .ind::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 16, 32, 0) 35%, rgba(10, 16, 32, 0.9)); }
+  .ind-body { position: absolute; left: 0; right: 0; bottom: 0; padding: 24px; z-index: 1; }
+  .ind-body h3 { font-size: 1.5rem; color: #fff; }
+  .light .ind-body p { color: #d3d9e4; margin-top: 6px; font-size: 0.95rem; }
+
+  .flow7 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); border-top: 1px solid var(--line); }
+  .flow7 li { padding: 28px 24px 28px 0; border-bottom: 1px solid var(--line); }
+  .flow7 .n { font-family: var(--font-display); font-weight: 600; font-size: 2.2rem; color: var(--accent); }
+  .flow7 h3 { font-size: 1.15rem; margin-top: 8px; max-width: 22ch; }
+  .flow7 .out { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); }
+
+  .quality { background: var(--bg-2); }
+  .q-grid { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .q-photo { aspect-ratio: 4 / 5; }
+  .certs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+  .cert { border: 1px solid var(--line-strong); padding: 22px; display: grid; gap: 4px; }
+  .cert strong { font-family: var(--font-display); font-size: 1.5rem; }
+  .cert span { color: var(--muted); font-size: 0.92rem; }
+  .cert em { font-style: normal; color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 6px; }
+  .strengths { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 18px; }
+  .strengths li { display: flex; gap: 18px; }
+  .strengths li > span { font-family: var(--font-display); font-weight: 600; font-size: 1.6rem; color: var(--accent); min-width: 2ch; }
+  .strengths h3 { font-size: 1.05rem; }
+  .strengths p { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
+
+  .export { position: relative; overflow: hidden; padding: clamp(80px, 10vw, 140px) 0; isolation: isolate; }
+  .export-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .export::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(7, 9, 14, 0.94), rgba(7, 9, 14, 0.55)); }
+  .export .lead { color: #c9d0dc; }
+  .countries { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .countries li { border: 1px solid var(--line-strong); padding: 8px 14px; font-size: 0.92rem; }
+  .highlights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 36px; max-width: 900px; }
+  .highlights strong { display: block; font-family: var(--font-display); color: var(--accent); font-size: 1.15rem; }
+  .highlights span { color: #c9d0dc; font-size: 0.9rem; }
+
+  @media (max-width: 900px) {
+    .about, .q-grid, .cap { grid-template-columns: 1fr; }
+    .cap:nth-child(2) .cap-photo { order: 0; }
+    .cap-photo { min-height: 240px; aspect-ratio: 16 / 10; }
+    .inds { grid-template-columns: 1fr 1fr; }
+    .highlights { grid-template-columns: 1fr 1fr; }
+    .about-photo, .q-photo { aspect-ratio: 16 / 11; }
+  }
+  @media (max-width: 560px) {
+    .inds, .certs { grid-template-columns: 1fr; }
+    .ind { aspect-ratio: 16 / 11; }
+  }
+</style>

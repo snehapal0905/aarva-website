@@ -1,21 +1,23 @@
 ---
+import { Image } from 'astro:assets';
+import clouds from '../assets/site/cta-clouds.jpg';
+import { cta } from '../data/content';
 interface Props {
   title?: string;
   text?: string;
 }
-const {
-  title = 'Send a drawing. Get a quote within 24 hours.',
-  text = 'Share your drawings, CAD files or specifications. Our team reviews feasibility, material and lead time, and replies within 24 hours.',
-} = Astro.props;
+const { title = cta.title, text = cta.text } = Astro.props;
 ---
 <section class="section-tight">
   <div class="container">
-    <div class="cta reveal">
+    <div class="cta-photo reveal">
+      <Image src={clouds} alt="" widths={[960, 1800]} sizes="(max-width: 1200px) 100vw, 1200px" />
+      <span class="eyebrow">{cta.eyebrow}</span>
       <h2>{title}</h2>
       <p>{text}</p>
-      <div class="hero-cta">
-        <a href="/contact/#rfq" class="btn btn-light">Request a quote</a>
-        <a href="/capabilities/" class="btn btn-ghost">View capabilities</a>
+      <div class="hero-cta" style="margin-top:28px">
+        <a href="/contact/#rfq" class="btn btn-light">Request a Quote</a>
+        <a href="/capabilities/" class="btn btn-ghost">View Capabilities</a>
       </div>
     </div>
   </div>

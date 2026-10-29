@@ -1,7 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import Blueprint from '../components/Blueprint.astro';
+import { Image } from 'astro:assets';
+import a from '../assets/site/ind-aerospace.jpg';
+import d from '../assets/site/ind-defence.jpg';
+import m from '../assets/site/ind-medical.jpg';
+import au from '../assets/site/ind-automotive.jpg';
+import h from '../assets/site/ind-hydraulics.jpg';
+import mt from '../assets/site/ind-machine-tools.jpg';
+const imgs = [a, d, m, au, h, mt];
 import Cta from '../components/Cta.astro';
 import { industries, componentExamples } from '../data/site';
 ---
@@ -17,12 +24,14 @@ import { industries, componentExamples } from '../data/site';
 
   <section class="section-tight">
     <div class="container grid-3">
-      {industries.map((ind) => (
-        <article class="card ind-card reveal" id={ind.slug} style="scroll-margin-top:100px">
-          <Blueprint kind={ind.icon} />
-          <h3>{ind.name}</h3>
-          <p>{ind.text}</p>
-          <ul>{ind.parts.map((p) => <li>{p}</li>)}</ul>
+      {industries.map((ind, i) => (
+        <article class="img-card reveal" id={ind.slug} style="scroll-margin-top:100px">
+          <div class="art"><Image src={imgs[i]} alt={ind.name} widths={[500, 900]} sizes="(max-width: 900px) 100vw, 33vw" /></div>
+          <div class="body">
+            <h3>{ind.name}</h3>
+            <p>{ind.text}</p>
+            <ul class="muted" style="margin-top:12px;padding-left:18px">{ind.parts.map((p) => <li>{p}</li>)}</ul>
+          </div>
         </article>
       ))}
     </div>

@@ -1,7 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import Blueprint from '../components/Blueprint.astro';
+import { Image } from 'astro:assets';
+import p1 from '../assets/site/parts-1.jpg';
+import p2 from '../assets/site/parts-2.jpg';
+import p3 from '../assets/site/finish-anodized.jpg';
+const imgs = [p2, p1, p2, p1, p3, p2];
 import Cta from '../components/Cta.astro';
 import { componentExamples } from '../data/site';
 ---
@@ -17,9 +21,9 @@ import { componentExamples } from '../data/site';
 
   <section class="section-tight">
     <div class="container grid-3">
-      {componentExamples.map((c) => (
-        <article class="card part-card reveal">
-          <div class="art"><Blueprint kind={c.kind} label={`${c.component} drawing`} /></div>
+      {componentExamples.map((c, i) => (
+        <article class="img-card reveal">
+          <div class="art"><Image src={imgs[i % imgs.length]} alt="" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 33vw" /></div>
           <div class="body">
             <div class="meta"><span>{c.industry}</span><span class="mono">{c.material}</span></div>
             <h3 style="margin-top:10px">{c.component}</h3>

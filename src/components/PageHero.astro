@@ -1,12 +1,16 @@
 ---
+import { Image } from 'astro:assets';
+import clouds from '../assets/site/cta-clouds.jpg';
 interface Props {
   eyebrow: string;
   title: string;
   text?: string;
+  image?: ImageMetadata;
 }
-const { eyebrow, title, text } = Astro.props;
+const { eyebrow, title, text, image = clouds } = Astro.props;
 ---
 <section class="page-hero">
+  <div class="ph-bg"><Image src={image} alt="" widths={[960, 1800]} sizes="100vw" loading="eager" /></div>
   <div class="container">
     <span class="eyebrow">{eyebrow}</span>
     <h1>{title}</h1>
