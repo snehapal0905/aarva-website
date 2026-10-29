@@ -1,0 +1,22 @@
+---
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = 'Send a drawing. Get a quote within 24 hours.',
+  text = 'Share your drawings, CAD files or specifications. Our team reviews feasibility, material and lead time, and replies within 24 hours.',
+} = Astro.props;
+---
+<section class="section-tight">
+  <div class="container">
+    <div class="cta reveal">
+      <h2>{title}</h2>
+      <p>{text}</p>
+      <div class="hero-cta">
+        <a href="/contact/#rfq" class="btn btn-light">Request a quote</a>
+        <a href="/capabilities/" class="btn btn-ghost">View capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>

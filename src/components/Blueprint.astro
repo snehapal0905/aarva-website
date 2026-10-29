@@ -1,0 +1,136 @@
+---
+// Technical-drawing style illustrations of the parts AARVA makes.
+// Used instead of stock photos until real shop-floor and part photos are available.
+import type { PartKind } from '../data/site';
+
+interface Props {
+  kind: PartKind;
+  label?: string;
+  class?: string;
+}
+const { kind, label, class: className } = Astro.props;
+
+function gearPath(cx: number, cy: number, rOuter: number, rRoot: number, teeth: number) {
+  const pts: string[] = [];
+  const step = (Math.PI * 2) / teeth;
+  for (let i = 0; i < teeth; i++) {
+    const a = i * step;
+    const corners = [
+      [rRoot, a],
+      [rOuter, a + step * 0.18],
+      [rOuter, a + step * 0.5],
+      [rRoot, a + step * 0.68],
+    ];
+    for (const [r, t] of corners) pts.push(`${(cx + r * Math.cos(t)).toFixed(1)},${(cy + r * Math.sin(t)).toFixed(1)}`);
+  }
+  return `M${pts.join('L')}Z`;
+}
+---
+<svg class:list={['bp', className]} viewBox="0 0 240 170" fill="none" role="img" aria-label={label ?? `${kind} drawing`}>
+  {kind === 'gear' && (
+    <g>
+      <path class="bp-line" d={gearPath(92, 82, 58, 48, 16)} />
+      <circle class="bp-thin" cx="92" cy="82" r="38" />
+      <circle class="bp-line" cx="92" cy="82" r="14" />
+      <path class="bp-thin" d={gearPath(178, 50, 30, 23, 10)} />
+      <circle class="bp-thin" cx="178" cy="50" r="15" />
+      <circle class="bp-line" cx="178" cy="50" r="8" />
+      <path class="bp-center" d="M92 14V150M24 82H160M178 12V88M140 50H216" />
+      <path class="bp-dim" d="M34 158H150M34 152V164M150 152V164" />
+      <text class="bp-text" x="92" y="154" text-anchor="middle">Ø116</text>
+    </g>
+  )}
+  {kind === 'bracket' && (
+    <g>
+      <path class="bp-line" d="M44 22H76V106H200V138H44Z" />
+      <path class="bp-hidden" d="M44 106H76" />
+      <circle class="bp-line" cx="60" cy="44" r="7" />
+      <circle class="bp-line" cx="60" cy="80" r="7" />
+      <circle class="bp-line" cx="120" cy="122" r="7" />
+      <circle class="bp-line" cx="170" cy="122" r="7" />
+      <path class="bp-center" d="M60 30V94M48 44H72M48 80H72M120 110V134M170 110V134M108 122H182" />
+      <path class="bp-dim" d="M44 152H200M44 146V158M200 146V158" />
+      <text class="bp-text" x="122" y="148" text-anchor="middle">156</text>
+      <path class="bp-dim" d="M216 106V138M210 106H222M210 138H222" />
+      <text class="bp-text" x="226" y="125">32</text>
+    </g>
+  )}
+  {kind === 'housing' && (
+    <g>
+      <rect class="bp-line" x="50" y="24" width="140" height="112" rx="10" />
+      <circle class="bp-line" cx="120" cy="80" r="34" />
+      <circle class="bp-thin" cx="120" cy="80" r="24" />
+      <circle class="bp-line" cx="66" cy="40" r="5" />
+      <circle class="bp-line" cx="174" cy="40" r="5" />
+      <circle class="bp-line" cx="66" cy="120" r="5" />
+      <circle class="bp-line" cx="174" cy="120" r="5" />
+      <path class="bp-center" d="M120 16V144M42 80H198" />
+      <path class="bp-dim" d="M86 156H154M86 150V162M154 150V162" />
+      <text class="bp-text" x="120" y="152" text-anchor="middle">Ø68 H7</text>
+    </g>
+  )}
+  {kind === 'valve' && (
+    <g>
+      <rect class="bp-line" x="36" y="40" width="168" height="84" rx="4" />
+      <rect class="bp-line" x="98" y="20" width="44" height="20" />
+      <path class="bp-hidden" d="M36 74H204M36 90H204M112 40V74M128 40V74" />
+      <circle class="bp-line" cx="72" cy="82" r="12" />
+      <circle class="bp-line" cx="168" cy="82" r="12" />
+      <path class="bp-center" d="M24 82H216M72 62V102M168 62V102M120 12V132" />
+      <path class="bp-dim" d="M36 146H204M36 140V152M204 140V152" />
+      <text class="bp-text" x="120" y="142" text-anchor="middle">EN8 · 168</text>
+    </g>
+  )}
+  {kind === 'spacer' && (
+    <g>
+      <circle class="bp-line" cx="76" cy="80" r="50" />
+      <circle class="bp-line" cx="76" cy="80" r="22" />
+      <circle class="bp-thin" cx="76" cy="80" r="36" />
+      <path class="bp-center" d="M76 18V142M14 80H138" />
+      <rect class="bp-line" x="158" y="30" width="40" height="100" />
+      <path class="bp-hidden" d="M158 58H198M158 102H198" />
+      <path class="bp-center" d="M150 80H206" />
+      <path class="bp-dim" d="M158 148H198M158 142V154M198 142V154" />
+      <text class="bp-text" x="178" y="144" text-anchor="middle">40</text>
+      <text class="bp-text" x="76" y="160" text-anchor="middle">Ø100 · EN24</text>
+    </g>
+  )}
+  {kind === 'block' && (
+    <g>
+      <rect class="bp-line" x="40" y="30" width="160" height="100" rx="3" />
+      <rect class="bp-line" x="70" y="52" width="100" height="56" rx="8" />
+      <circle class="bp-line" cx="54" cy="44" r="5" />
+      <circle class="bp-line" cx="186" cy="44" r="5" />
+      <circle class="bp-line" cx="54" cy="116" r="5" />
+      <circle class="bp-line" cx="186" cy="116" r="5" />
+      <path class="bp-center" d="M120 20V140M30 80H210" />
+      <path class="bp-dim" d="M40 150H200M40 144V156M200 144V156" />
+      <text class="bp-text" x="120" y="146" text-anchor="middle">160 · Al 6061</text>
+    </g>
+  )}
+  {kind === 'fixture' && (
+    <g>
+      <rect class="bp-line" x="26" y="26" width="188" height="108" rx="3" />
+      <path class="bp-hidden" d="M26 62H214M26 98H214" />
+      {[0, 1, 2, 3, 4].map((i) => [0, 1, 2].map((j) => <circle class="bp-line" cx={50 + i * 35} cy={44 + j * 36} r="5" />))}
+      <path class="bp-dim" d="M26 150H214M26 144V156M214 144V156" />
+      <text class="bp-text" x="120" y="146" text-anchor="middle">188 · MS</text>
+    </g>
+  )}
+  {kind === 'uav' && (
+    <g>
+      <path class="bp-line" d="M106 70L64 34M134 70L176 34M106 92L64 128M134 92L176 128" />
+      <path class="bp-thin" d="M112 66L70 30M128 66L170 30M112 96L70 132M128 96L170 132" />
+      <rect class="bp-line" x="100" y="62" width="40" height="38" rx="6" />
+      <circle class="bp-line" cx="58" cy="30" r="22" />
+      <circle class="bp-line" cx="182" cy="30" r="22" />
+      <circle class="bp-line" cx="58" cy="132" r="22" />
+      <circle class="bp-line" cx="182" cy="132" r="22" />
+      <circle class="bp-thin" cx="58" cy="30" r="4" />
+      <circle class="bp-thin" cx="182" cy="30" r="4" />
+      <circle class="bp-thin" cx="58" cy="132" r="4" />
+      <circle class="bp-thin" cx="182" cy="132" r="4" />
+      <path class="bp-center" d="M120 8V156M20 81H220" />
+    </g>
+  )}
+</svg>

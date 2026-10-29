@@ -1,0 +1,47 @@
+---
+import { machines } from '../data/site';
+const fmt = (n: number) => n.toLocaleString('en-IN');
+---
+<div class="window" role="region" aria-label="Machine floor overview">
+  <div class="window-bar">
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <span class="url">aarvaaerospace.com/capabilities</span>
+  </div>
+  <div class="window-body">
+    <div class="window-side" aria-hidden="true">
+      <span class="on">Machines</span>
+      <span>Materials</span>
+      <span>Finishes</span>
+      <span>Inspection</span>
+      <span>Catalogue</span>
+    </div>
+    <div class="window-main">
+      <div class="window-head">
+        <h3>Machine floor</h3>
+        <small>6 VMC machines · Peenya, Bengaluru</small>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-hide">ID</th>
+            <th>Machine</th>
+            <th>Axes</th>
+            <th class="col-hide">Travel X × Y × Z (mm)</th>
+            <th>Spindle</th>
+          </tr>
+        </thead>
+        <tbody>
+          {machines.map((m) => (
+            <tr>
+              <td class="mono col-hide">{m.id}</td>
+              <td>{m.model}</td>
+              <td><span class={`tag tag-${m.axes[0]}`}>{m.axes}</span></td>
+              <td class="mono col-hide">{m.x} × {m.y} × {m.z}</td>
+              <td class="mono">{fmt(m.rpm)} rpm</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

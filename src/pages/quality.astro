@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import { equipment, quality, strengths } from '../data/site';
+---
+<Base
+  title="Quality & Certifications: ISO 9001:2015, AS9100D in Progress"
+  description="ISO 9001:2015 certified precision machining, pursuing AS9100 Rev D. CMM and calibrated inspection, FAI, MTC and CoC with every order."
+>
+  <PageHero
+    eyebrow="Quality"
+    title="Zero-defect thinking, calibrated at every step"
+    text="Certified quality systems, calibrated inspection equipment and full documentation, so your parts pass incoming inspection the first time."
+  />
+
+  <section class="section-tight">
+    <div class="container grid-2">
+      <div class="card cert reveal">
+        <div class="cert-badge ok">ISO</div>
+        <div>
+          <h3>ISO 9001:2015</h3>
+          <p>Quality management system</p>
+          <span class="status ok">Certified</span>
+        </div>
+      </div>
+      <div class="card cert reveal">
+        <div class="cert-badge wip">AS</div>
+        <div>
+          <h3>AS9100 Rev D</h3>
+          <p>Aerospace quality management system</p>
+          <span class="status wip">In progress</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:32px">
+        <span class="eyebrow">Inspection</span>
+        <h2 class="h2">Calibrated inspection equipment</h2>
+      </div>
+      <div class="table-card reveal">
+        <table class="table">
+          <thead><tr><th>ID</th><th>Instrument</th><th>Range</th></tr></thead>
+          <tbody>
+            {equipment.map((e) => <tr><td class="mono">{e.id}</td><td>{e.name}</td><td class="mono">{e.range}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container grid-3">
+      <div class="card reveal"><h3>Vision</h3><p>{quality.vision}</p></div>
+      <div class="card reveal"><h3>Mission</h3><p>{quality.mission}</p></div>
+      <div class="card reveal">
+        <h3>Quality policy</h3>
+        <p>{quality.policy}</p>
+        <ul class="check-list" style="margin-top:18px">{quality.objectives.map((o) => <li>{o}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:40px">
+        <span class="eyebrow">Why Aarva</span>
+        <h2 class="h2">Our key strengths</h2>
+      </div>
+      <div class="grid-3">
+        {strengths.map((s, i) => (
+          <div class="card reveal"><span class="mono" style="color:var(--accent)">0{i + 1}</span><h3 style="margin-top:12px">{s.title}</h3><p>{s.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

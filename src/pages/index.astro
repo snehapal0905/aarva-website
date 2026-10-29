@@ -1,0 +1,167 @@
+---
+import Base from '../layouts/Base.astro';
+import Blueprint from '../components/Blueprint.astro';
+import MachineWindow from '../components/MachineWindow.astro';
+import Cta from '../components/Cta.astro';
+import { stats, clients, oneStop, industries, process, deliverables } from '../data/site';
+---
+<Base
+  title="Aarva Aerospace | Precision CNC & 5-Axis VMC Machining, Bengaluru"
+  description="ISO 9001:2015 certified precision CNC and 5-axis VMC machining in Peenya, Bengaluru. Aerospace, defence, medical, automotive and hydraulic components to ±0.005 mm."
+>
+  <section class="hero">
+    <div class="container">
+      <span class="pill"><b>2026</b> Aerospace and defence manufacturer in Karnataka</span>
+      <h1>Precision engineering for aerospace and defence</h1>
+      <p class="hero-sub">
+        CNC and 5-axis VMC machined components held to ±0.005 mm, with full traceability and inspection
+        reports on every order.
+      </p>
+      <div class="hero-cta">
+        <a href="/contact/#rfq" class="btn btn-light">Request a quote</a>
+        <a href="/catalogue/" class="btn btn-ghost">See our products</a>
+      </div>
+      <div class="hero-meta">
+        <span>ISO 9001:2015 certified</span>
+        <span>AS9100D in progress</span>
+        <span>Peenya, Bengaluru</span>
+      </div>
+    </div>
+    <div class="window-wrap reveal">
+      <MachineWindow />
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="stats reveal">
+        {stats.map((s) => (
+          <div class="stat"><strong>{s.value}</strong><span>{s.label}</span></div>
+        ))}
+      </div>
+      <div class="clients reveal" style="margin-top:56px">
+        <p>Trusted by manufacturers including</p>
+        <div class="client-row">{clients.map((c) => <span>{c}</span>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="container">
+      <div class="reveal">
+        <span class="eyebrow">Products</span>
+        <h2 class="h2">Everything Aarva Aerospace makes</h2>
+        <p class="lead">
+          Machined parts for regular buyers, and custom work for anyone with a drawing, a sample or a specific need.
+        </p>
+      </div>
+      <div class="bento reveal" style="margin-top:48px">
+        <a href="/contact/#rfq" class="card feature">
+          <Blueprint kind="gear" label="Gear technical drawing" />
+          <h3>Made to your specification</h3>
+          <p>Send a drawing or a sample. We confirm what’s possible, the minimum order and a timeline before you commit.</p>
+        </a>
+        <a href="/industries/#aerospace" class="card small">
+          <h3>Aerospace parts</h3>
+          <p>Brackets, housings and mounting blocks in Al 7075-T6, Al 6061 and SS316.</p>
+          <Blueprint kind="bracket" />
+        </a>
+        <a href="/industries/#defence" class="card small">
+          <h3>Defence &amp; UAV components</h3>
+          <p>UAV frame parts, precision brackets and structural housings.</p>
+          <Blueprint kind="uav" />
+        </a>
+        <a href="/capabilities/#finishes" class="card small">
+          <h3>Finished, ready to fit</h3>
+          <p>Anodizing, plating, coating and heat treatment, all handled in one order.</p>
+          <Blueprint kind="block" />
+        </a>
+        <a href="/quality/" class="card small">
+          <h3>Inspected &amp; documented</h3>
+          <p>CMM inspection, FAI, MTC and CoC shipped with every batch.</p>
+          <Blueprint kind="housing" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">One supplier</span>
+          <h2 class="h2">From raw material to finished part, under one roof</h2>
+        </div>
+        <a href="/capabilities/" class="arrow-link">All capabilities →</a>
+      </div>
+      <div class="flow reveal">
+        {oneStop.map((s, i) => (
+          <div class="flow-step">
+            <span class="n">0{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Industries</span>
+          <h2 class="h2">Built for sectors where tolerance is not optional</h2>
+        </div>
+        <a href="/industries/" class="arrow-link">See all industries →</a>
+      </div>
+      <div class="grid-3">
+        {industries.map((ind) => (
+          <a href={`/industries/#${ind.slug}`} class="card ind-card reveal">
+            <Blueprint kind={ind.icon} />
+            <h3>{ind.name}</h3>
+            <p>{ind.text}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">How we work</span>
+          <h2 class="h2">Seven steps, documented at every stage</h2>
+        </div>
+        <a href="/how-we-work/" class="arrow-link">See the full process →</a>
+      </div>
+      <ol class="steps-mini reveal">
+        {process.map((p, i) => (
+          <li><span class="n">0{i + 1}</span><h3>{p.title}</h3></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div class="reveal">
+        <span class="eyebrow">Quality</span>
+        <h2 class="h2">Calibrated at every step</h2>
+        <p class="lead">
+          ISO 9001:2015 certified, working towards AS9100 Rev D. Every order ships with the paperwork your quality team needs.
+        </p>
+        <div style="margin-top:28px"><a href="/quality/" class="arrow-link">Quality &amp; certifications →</a></div>
+      </div>
+      <div class="card reveal">
+        <h3>What you receive with every order</h3>
+        <ul class="check-list" style="margin-top:20px">
+          {deliverables.map((d) => <li>{d}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

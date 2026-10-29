@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Blueprint from '../components/Blueprint.astro';
+import Cta from '../components/Cta.astro';
+import { componentExamples } from '../data/site';
+---
+<Base
+  title="Catalogue: Precision Machined Parts"
+  description="Examples of precision machined components from Aarva Aerospace: aerospace brackets, housings, mounting blocks, valve bodies, spacers and fixture plates."
+>
+  <PageHero
+    eyebrow="Catalogue"
+    title="Parts we manufacture"
+    text="A selection of components across aluminium, steel and brass, with finishes including bead blasting and anodizing. Need something else? Send us your drawing."
+  />
+
+  <section class="section-tight">
+    <div class="container grid-3">
+      {componentExamples.map((c) => (
+        <article class="card part-card reveal">
+          <div class="art"><Blueprint kind={c.kind} label={`${c.component} drawing`} /></div>
+          <div class="body">
+            <div class="meta"><span>{c.industry}</span><span class="mono">{c.material}</span></div>
+            <h3 style="margin-top:10px">{c.component}</h3>
+            <p>{c.process}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <Cta title="Don’t see your part? Send the drawing." />
+</Base>

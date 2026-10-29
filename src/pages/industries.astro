@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Blueprint from '../components/Blueprint.astro';
+import Cta from '../components/Cta.astro';
+import { industries, componentExamples } from '../data/site';
+---
+<Base
+  title="Industries: Aerospace, Defence, Medical, Automotive & Hydraulics"
+  description="Precision machined components for aerospace, defence, medical equipment, automotive, hydraulics and machine tools, for domestic and export customers. Peenya, Bengaluru."
+>
+  <PageHero
+    eyebrow="Industries"
+    title="Precision parts for critical sectors"
+    text="We machine components for aerospace, defence, medical, automotive, hydraulics and machine tools, for domestic and export customers."
+  />
+
+  <section class="section-tight">
+    <div class="container grid-3">
+      {industries.map((ind) => (
+        <article class="card ind-card reveal" id={ind.slug} style="scroll-margin-top:100px">
+          <Blueprint kind={ind.icon} />
+          <h3>{ind.name}</h3>
+          <p>{ind.text}</p>
+          <ul>{ind.parts.map((p) => <li>{p}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:32px">
+        <span class="eyebrow">Examples</span>
+        <h2 class="h2">Components we produce</h2>
+      </div>
+      <div class="table-card reveal">
+        <table class="table">
+          <thead><tr><th>Industry</th><th>Component</th><th>Material</th><th class="col-hide">Process</th></tr></thead>
+          <tbody>
+            {componentExamples.map((c) => (
+              <tr><td>{c.industry}</td><td>{c.component}</td><td class="mono">{c.material}</td><td class="col-hide muted">{c.process}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <Cta title="Have a part for your sector?" />
+</Base>

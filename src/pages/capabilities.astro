@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import { capabilities, machines, materials, finishes, oneStop } from '../data/site';
+const fmt = (n: number) => n.toLocaleString('en-IN');
+const count = (a: string) => machines.filter((m) => m.axes === a).length;
+---
+<Base
+  title="CNC & 5-Axis VMC Machining Capabilities"
+  description="6 VMC machines in Peenya, Bengaluru: 3-axis, 4-axis and 5-axis with Detron rotary tables, up to 12,000 RPM and 1020 mm X travel. Aluminium, steel, titanium and brass."
+>
+  <PageHero
+    eyebrow="Capabilities"
+    title="Six VMC machines, ready for your drawings"
+    text="3, 4 and 5-axis vertical machining centres with Detron rotary tables, up to 12,000 RPM and 1020 mm of X travel."
+  >
+    <div class="spec-row" style="margin-top:28px">
+      <span class="spec">{machines.length} VMC machines</span>
+      <span class="spec">{count('5-axis')} × 5-axis</span>
+      <span class="spec">{count('4-axis')} × 4-axis</span>
+      <span class="spec">{count('3-axis')} × 3-axis</span>
+      <span class="spec">±0.005 mm</span>
+    </div>
+  </PageHero>
+
+  <section class="section-tight">
+    <div class="container grid-3">
+      {capabilities.map((c) => (
+        <div class="card reveal">
+          <span class={`tag tag-${c.axes[0]}`}>{c.axes}</span>
+          <h3 style="margin-top:18px">{c.title}</h3>
+          <p>{c.text}</p>
+          <div class="spec-row">{c.specs.map((s) => <span class="spec">{s}</span>)}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-tight" id="machines">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:40px">
+        <span class="eyebrow">Machine list</span>
+        <h2 class="h2">Our machine floor</h2>
+      </div>
+      <div class="grid-3">
+        {machines.map((m) => (
+          <article class="card machine reveal">
+            <div class="machine-top">
+              <span class={`tag tag-${m.axes[0]}`}>{m.axes}</span>
+              <span class="mono muted">{m.id}</span>
+            </div>
+            <h3>{m.model}</h3>
+            <div class="axes-grid">
+              <div><strong>{m.x}</strong><span>X mm</span></div>
+              <div><strong>{m.y}</strong><span>Y mm</span></div>
+              <div><strong>{m.z}</strong><span>Z mm</span></div>
+            </div>
+            <dl>
+              <dt>Table size</dt><dd>{m.table}</dd>
+              <dt>Spindle speed</dt><dd>{fmt(m.rpm)} RPM</dd>
+              {m.special && <><dt>Special</dt><dd>{m.special}</dd></>}
+            </dl>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" id="materials">
+    <div class="container grid-2">
+      <div class="card reveal">
+        <span class="eyebrow">Materials</span>
+        <h3 style="font-size:1.5rem;margin-bottom:22px">Materials we machine</h3>
+        <div class="chips">
+          {materials.map((m) => <div class="chip"><strong>{m.name}</strong><small>{m.note}</small></div>)}
+        </div>
+      </div>
+      <div class="card reveal" id="finishes">
+        <span class="eyebrow">Surface finishes</span>
+        <h3 style="font-size:1.5rem;margin-bottom:22px">Finished and ready to fit</h3>
+        <ul class="check-list" style="grid-template-columns:1fr 1fr">
+          {finishes.map((f) => <li>{f}</li>)}
+        </ul>
+        <p style="margin-top:24px;font-size:0.95rem">
+          Heat treatment, wire cutting and EDM are also available, so you get finished parts from one supplier.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:40px">
+        <span class="eyebrow">One supplier</span>
+        <h2 class="h2">Everything your part needs, in one order</h2>
+      </div>
+      <div class="flow reveal">
+        {oneStop.map((s, i) => (
+          <div class="flow-step"><span class="n">0{i + 1}</span><h3>{s.title}</h3><p>{s.text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

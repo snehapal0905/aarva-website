@@ -1,0 +1,6 @@
+# PREVIEW: blocks search engines. At launch replace with:
+# User-agent: *
+# Allow: /
+# Sitemap: https://aarvaaerospace.com/sitemap-index.xml
+User-agent: *
+Disallow: /

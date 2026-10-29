@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Cta from '../components/Cta.astro';
+import { process, deliverables } from '../data/site';
+---
+<Base
+  title="How We Work: 7-Step Precision Manufacturing Process"
+  description="From drawing review and DFM to CNC programming, machining, finishing, CMM inspection and dispatch with CoC, MTC and FAI reports."
+>
+  <PageHero
+    eyebrow="How we work"
+    title="From your drawing to a documented part"
+    text="Seven steps, each with a clear output, so you know where your order stands and what you’ll receive."
+  />
+
+  <section class="section-tight">
+    <div class="container">
+      <ol class="steps">
+        {process.map((p, i) => (
+          <li class="step reveal">
+            <div>
+              <span class="n">Step 0{i + 1}</span>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </div>
+            <div class="out"><small>Output</small>{p.output}</div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container grid-2">
+      <div class="reveal">
+        <span class="eyebrow">Deliverables</span>
+        <h2 class="h2">What ships with your parts</h2>
+        <p class="lead">Every order comes with the documents your incoming inspection and quality teams expect.</p>
+      </div>
+      <div class="card reveal">
+        <ul class="check-list">{deliverables.map((d) => <li>{d}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Base>

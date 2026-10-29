@@ -1,0 +1,161 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site, industries, materials } from '../data/site';
+---
+<Base
+  title="Request a Quote | CNC Machining in Peenya, Bengaluru"
+  description="Send your drawing or CAD file for a precision CNC / VMC machining quote. Aarva Aerospace, Peenya 2nd Stage, Bengaluru. Reply within 24 hours."
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Request a quote"
+    text="Send your drawing, CAD file or specification. We review feasibility, material and lead time, and reply within 24 hours."
+  />
+
+  <section class="section-tight" id="rfq" style="scroll-margin-top:80px">
+    <div class="container contact-grid">
+      <div class="card reveal">
+        <form class="form" data-rfq data-endpoint={site.formEndpoint} data-wa={site.whatsapp} enctype="multipart/form-data" method="post">
+          <div class="field">
+            <label for="name">Your name *</label>
+            <input id="name" name="name" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="company">Company *</label>
+            <input id="company" name="company" required autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="phone">Phone / WhatsApp</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="industry">Industry</label>
+            <select id="industry" name="industry">
+              <option value="">Select</option>
+              {industries.map((i) => <option>{i.name}</option>)}
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="material">Material</label>
+            <select id="material" name="material">
+              <option value="">Select</option>
+              {materials.map((m) => <option>{m.name}</option>)}
+              <option>Not sure / other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="quantity">Quantity</label>
+            <input id="quantity" name="quantity" placeholder="e.g. 50 pcs" />
+          </div>
+          <div class="field">
+            <label for="needed">Required by</label>
+            <input id="needed" name="needed" type="date" />
+          </div>
+          <div class="field full">
+            <label for="message">Part details *</label>
+            <textarea id="message" name="message" required placeholder="Part description, tolerances, surface finish, inspection requirements…"></textarea>
+          </div>
+          <div class="field full">
+            <label class="drop" for="files">
+              <input id="files" name="files" type="file" multiple accept=".pdf,.step,.stp,.igs,.iges,.dxf,.dwg,.x_t,.png,.jpg,.jpeg" data-files />
+              <strong>Attach drawings or CAD files</strong><br />
+              <span data-files-label>PDF, STEP, IGES, DXF, DWG or images</span>
+            </label>
+          </div>
+          <div class="full form-msg" data-msg role="status"></div>
+          <div class="full" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+            <button class="btn btn-light" type="submit">Send enquiry</button>
+            <span class="form-note">Your drawings are kept confidential.</span>
+          </div>
+        </form>
+      </div>
+
+      <aside class="card reveal">
+        <h3>Talk to us directly</h3>
+        <div style="margin-top:8px">
+          <div class="contact-item">
+            <div><small>Phone</small><a href={site.phoneHref}>{site.phone}</a></div>
+          </div>
+          <div class="contact-item">
+            <div><small>WhatsApp</small><a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">Chat with our team</a></div>
+          </div>
+          {site.email && (
+            <div class="contact-item">
+              <div><small>Email</small><a href={`mailto:${site.email}`}>{site.email}</a></div>
+            </div>
+          )}
+          <div class="contact-item">
+            <div>
+              <small>Factory</small>
+              {site.legalName}<br />
+              {site.address.line1}, {site.address.city}, {site.address.region} – {site.address.postalCode}
+            </div>
+          </div>
+        </div>
+        <iframe class="map" title="Map of Peenya 2nd Stage, Bengaluru" src={site.mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </aside>
+    </div>
+  </section>
+
+  <script>
+    const form = document.querySelector<HTMLFormElement>('[data-rfq]');
+    const msg = document.querySelector<HTMLElement>('[data-msg]');
+    const fileInput = document.querySelector<HTMLInputElement>('[data-files]');
+    const fileLabel = document.querySelector<HTMLElement>('[data-files-label]');
+
+    fileInput?.addEventListener('change', () => {
+      const names = Array.from(fileInput.files ?? []).map((f) => f.name);
+      if (fileLabel) fileLabel.textContent = names.length ? names.join(', ') : 'PDF, STEP, IGES, DXF, DWG or images';
+    });
+
+    const show = (text: string) => {
+      if (!msg) return;
+      msg.textContent = text;
+      msg.className = 'full form-msg ok show';
+    };
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const endpoint = form.dataset.endpoint;
+      const data = new FormData(form);
+
+      if (endpoint) {
+        const button = form.querySelector('button');
+        if (button) button.disabled = true;
+        try {
+          const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+          if (!res.ok) throw new Error();
+          form.reset();
+          show('Thank you. Your enquiry has been sent, and we will reply within 24 hours.');
+        } catch {
+          show('Something went wrong sending the form. Please call or WhatsApp us instead.');
+        } finally {
+          if (button) button.disabled = false;
+        }
+        return;
+      }
+
+      // No form service connected yet: hand the enquiry over to WhatsApp.
+      const lines = [
+        'New enquiry from the website',
+        `Name: ${data.get('name')}`,
+        `Company: ${data.get('company')}`,
+        `Email: ${data.get('email')}`,
+        data.get('phone') && `Phone: ${data.get('phone')}`,
+        data.get('industry') && `Industry: ${data.get('industry')}`,
+        data.get('material') && `Material: ${data.get('material')}`,
+        data.get('quantity') && `Quantity: ${data.get('quantity')}`,
+        data.get('needed') && `Required by: ${data.get('needed')}`,
+        `Details: ${data.get('message')}`,
+      ].filter(Boolean);
+      window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+      show('WhatsApp has opened with your enquiry. Please attach your drawings in the chat.');
+    });
+  </script>
+</Base>
